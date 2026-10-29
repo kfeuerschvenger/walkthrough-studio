@@ -19,6 +19,9 @@ server/data
 # Source material for the demo model, not needed to build the app
 assets-src
 
+# Screenshot pipeline: its own dependencies and outputs, not part of the app
+e2e
+
 # Documentation, including private notes, is not read by the image build
 docs
 
