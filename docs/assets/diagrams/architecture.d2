@@ -1,0 +1,60 @@
+# Walkthrough Studio architecture, light variant.
+# Render from this folder:
+#   d2 --theme 0 --pad 40 architecture.d2 architecture.svg
+#   d2 --theme 200 --pad 40 architecture-dark.d2 architecture-dark.svg
+# Palette: paint orange, afternoon light, deep orange, day sky, night, steel.
+# architecture-dark.d2 imports this file and swaps the classes for dark tones.
+
+grid-columns: 3
+horizontal-gap: 160
+
+classes: {
+  paint: {style: {fill: "#ffe2b8"; stroke: "#c97608"; font-color: "#7a4704"; border-radius: 12; stroke-width: 2}}
+  light: {style: {fill: "#fff0d9"; stroke: "#ffb347"; font-color: "#7a4704"; border-radius: 12; stroke-width: 2}}
+  sky: {style: {fill: "#bde0ff"; stroke: "#2b5f8f"; font-color: "#16395a"; border-radius: 12; stroke-width: 2}}
+  steel: {style: {fill: "#ececea"; stroke: "#9a9a96"; font-color: "#3d3d3a"; border-radius: 12; stroke-width: 2}}
+  night: {style: {fill: "#1a2540"; stroke: "#1a2540"; font-color: "#ffffff"; border-radius: 12; stroke-width: 2}}
+  group-paint: {style: {fill: "#fffaf1"; stroke: "#f99a1c"; font-color: "#7a4704"; border-radius: 16; stroke-dash: 4; bold: true}}
+  group-sky: {style: {fill: "#f1f8ff"; stroke: "#2b5f8f"; font-color: "#16395a"; border-radius: 16; stroke-dash: 4; bold: true}}
+  group-steel: {style: {fill: "#f7f7f5"; stroke: "#9a9a96"; font-color: "#3d3d3a"; border-radius: 16; stroke-dash: 4; bold: true}}
+  flow: {style: {stroke: "#c97608"; font-color: "#7a4704"; stroke-width: 2}}
+}
+
+client: "In the browser" {
+  class: group-paint
+  grid-columns: 2
+  vertical-gap: 50
+  horizontal-gap: 50
+  routes: "React 19 routes\nlanding, walkthrough, scene editor\nthree.js chunks load lazily" {class: paint}
+  sun: "Light and sun\ncomputeSun(hour), user lights" {class: light}
+  scene: "SceneProvider\none source of truth\ndebounced autosave" {class: paint}
+  paint: "Painting\ntriplanar material, flood fill,\nper-face meshes" {class: light}
+}
+
+server: "Express 5 on Node 22" {
+  class: group-sky
+  grid-rows: 4
+  vertical-gap: 40
+  guard: "Host and Origin checks\nsecurity headers, 2 MB JSON" {class: sky}
+  api: "/api/scene and /api/textures\nhand-written validators\nmagic-byte image sniffing" {class: sky}
+  store: "store.ts\natomic writes, one FIFO queue,\ncorrupt-file quarantine" {class: sky}
+  static: "Static files\nbuilt SPA and read-only /models" {class: steel}
+}
+
+disk: "On disk" {
+  class: group-steel
+  grid-rows: 3
+  vertical-gap: 50
+  data: "DATA_DIR\nscene.json\ntextures manifest and blobs" {shape: cylinder; class: paint}
+  models: "MODELS_DIR\nyour own FBX or glTF" {shape: cylinder; class: steel}
+  demo: "public/demo/house.glb\nthe CC0 demo house" {class: night}
+}
+
+client.routes -> client.scene {class: flow}
+client.scene -> client.paint {class: flow}
+client.scene -> client.sun {class: flow}
+client.scene -> server.guard: "PUT, POST, PATCH,\nDELETE /api" {class: flow}
+server.guard -> server.api -> server.store {class: flow}
+server.store -> disk.data {class: flow}
+server.static -> disk.models {class: flow}
+server.static -> disk.demo {class: flow}

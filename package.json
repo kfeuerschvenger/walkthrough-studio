@@ -1,7 +1,18 @@
 {
   "name": "walkthrough",
+  "description": "A 3D house walkthrough with a texture and lighting editor: paint the walls before you buy the paint.",
   "private": true,
   "version": "0.0.0",
+  "license": "MIT",
+  "author": "Kevin Feuerschvenger (https://feuerschvenger.com/)",
+  "homepage": "https://github.com/kfeuerschvenger/walkthrough-studio#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kfeuerschvenger/walkthrough-studio.git"
+  },
+  "engines": {
+    "node": ">=22"
+  },
   "type": "module",
   "scripts": {
     "dev": "concurrently -k -n vite,api -c blue,green \"npm:dev:vite\" \"npm:dev:api\"",
