@@ -1,0 +1,582 @@
+.tt-root {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  background: var(--bg-base);
+}
+
+.tt-root.is-painting .tt-viewport {
+  cursor: crosshair;
+}
+
+.tt-viewport {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ---------- Panel shell ---------- */
+
+.tt-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--bg-panel);
+  border-left: 1px solid var(--line-strong);
+  overflow-y: auto;
+  font-size: 13px;
+}
+
+.tt-panel__header {
+  position: relative;
+  padding: 16px 20px 14px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--line);
+}
+
+.tt-panel__header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--orange);
+}
+
+.tt-panel__header h2 {
+  margin: 10px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel-100);
+}
+
+.tt-panel__back {
+  color: var(--orange);
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+
+.tt-panel__back:hover {
+  color: var(--orange-bright);
+}
+
+.tt-panel__section {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tt-panel__section h3 {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--steel-500);
+  position: relative;
+  padding-left: 12px;
+}
+
+.tt-panel__section h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 10px;
+  background: var(--orange);
+}
+
+.tt-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tt-panel__footer {
+  margin-top: auto;
+  padding: 16px 20px;
+  background: var(--bg-base);
+  border-top: 1px solid var(--line);
+}
+
+.tt-hint {
+  margin: 0;
+  font-size: 11px;
+  color: var(--steel-500);
+  line-height: 1.5;
+}
+
+.tt-empty {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--steel-500);
+  font-style: italic;
+}
+
+/* ---------- Mode toggle ---------- */
+
+.tt-mode-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.tt-mode-toggle button {
+  padding: 9px 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-strong);
+  color: var(--steel-300);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.tt-mode-toggle button:hover {
+  background: var(--bg-hover);
+  border-color: var(--steel-600);
+  color: var(--steel-100);
+}
+
+.tt-mode-toggle button.is-active {
+  background: var(--orange);
+  border-color: var(--orange-bright);
+  color: #111;
+}
+
+/* ---------- Generic button ---------- */
+
+.tt-btn {
+  padding: 7px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-strong);
+  color: var(--steel-300);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.tt-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--orange);
+  color: var(--orange-bright);
+}
+
+.tt-btn--danger {
+  border-color: rgba(217, 76, 44, 0.5);
+  color: var(--danger);
+}
+
+.tt-btn--danger:hover {
+  background: var(--danger-glow);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+/* ---------- Texture grid ---------- */
+
+.tt-tex-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+/* Wraps a card and its delete control as siblings: a button cannot nest one. */
+.tt-tex-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.tt-tex-item > .tt-tex-card {
+  flex: 1;
+}
+
+.tt-tex-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-strong);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.15s, transform 0.1s;
+}
+
+.tt-tex-card:hover {
+  border-color: var(--orange);
+}
+
+.tt-tex-card.is-selected {
+  border-color: var(--orange);
+  box-shadow:
+    0 0 0 1px var(--orange),
+    0 0 12px var(--orange-glow);
+}
+
+.tt-tex-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  background: var(--bg-deep);
+}
+
+.tt-tex-card__name {
+  font-size: 10px;
+  color: var(--steel-300);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  letter-spacing: 0.02em;
+}
+
+.tt-tex-card__delete {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: rgba(10, 10, 10, 0.9);
+  border: 1px solid rgba(217, 76, 44, 0.5);
+  color: var(--danger);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.tt-tex-item:hover .tt-tex-card__delete,
+.tt-tex-card__delete:focus-visible {
+  opacity: 1;
+}
+
+.tt-tex-card__delete:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* ---------- Scale slider ---------- */
+
+.tt-scale-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tt-scale-row input[type='range'] {
+  flex: 1;
+  accent-color: var(--orange);
+}
+
+.tt-scale-value {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 11px;
+  color: var(--orange-bright);
+  min-width: 56px;
+  text-align: right;
+  font-weight: 600;
+}
+
+/* ---------- Light actions ---------- */
+
+.tt-lights-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+/* Per-light editor footer row: Clonar + Eliminar */
+.tt-light-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+/* ---------- Panel mode tabs ---------- */
+
+.tt-panel-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-top: 14px;
+  background: var(--bg-deep);
+  border: 1px solid var(--line-strong);
+}
+
+.tt-panel-tabs button {
+  padding: 9px 10px;
+  background: transparent;
+  border: none;
+  color: var(--steel-400);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tt-panel-tabs button + button {
+  border-left: 1px solid var(--line-strong);
+}
+
+.tt-panel-tabs button:hover {
+  color: var(--steel-100);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.tt-panel-tabs button.is-active {
+  background: var(--orange);
+  color: #111;
+}
+
+/* ---------- Light list rows ---------- */
+
+.tt-light-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tt-light-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  color: var(--steel-300);
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.tt-light-row:hover {
+  background: var(--bg-hover);
+  border-color: var(--steel-600);
+}
+
+.tt-light-row.is-selected {
+  background: var(--orange-tint);
+  border-color: var(--orange);
+}
+
+.tt-light-row__swatch {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--line-strong);
+  flex-shrink: 0;
+}
+
+.tt-light-row__label {
+  flex: 1;
+  letter-spacing: 0.04em;
+}
+
+.tt-light-row__meta {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 11px;
+  color: var(--orange-bright);
+  font-weight: 600;
+}
+
+/* ---------- Transform mode tabs ---------- */
+
+.tt-transform-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--line-strong);
+}
+
+.tt-transform-tabs button {
+  padding: 7px 8px;
+  background: var(--bg-elevated);
+  border: none;
+  color: var(--steel-300);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tt-transform-tabs button + button {
+  border-left: 1px solid var(--line-strong);
+}
+
+.tt-transform-tabs button:hover {
+  background: var(--bg-hover);
+  color: var(--steel-100);
+}
+
+.tt-transform-tabs button.is-active {
+  background: var(--orange);
+  color: #111;
+}
+
+/* ---------- Generic field ---------- */
+
+.tt-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tt-field label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--steel-500);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.tt-field input[type='range'] {
+  accent-color: var(--orange);
+  width: 100%;
+}
+
+.tt-color-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tt-color-row input[type='color'] {
+  width: 44px;
+  height: 32px;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.tt-mono {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 11px;
+  color: var(--orange-bright);
+  letter-spacing: 0.04em;
+}
+
+/* Banner shown when the saved scene could not be loaded. */
+.scene-load-error {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(640px, calc(100vw - 32px));
+  padding: 10px 14px;
+  background: var(--bg-panel);
+  border: 1px solid var(--orange-bright);
+  color: #fff;
+}
+
+.scene-load-error button {
+  flex: none;
+  padding: 4px 12px;
+  background: var(--orange-bright);
+  border: 0;
+  color: #141414;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Shown while a lazily loaded route is being fetched. */
+.route-fallback {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--bg-deep);
+  color: var(--steel-400);
+}
+
+/* Live region that stacks transient status messages (toasts). */
+.toast-region {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: min(420px, calc(100vw - 32px));
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--bg-panel);
+  border: 1px solid var(--line-strong);
+  border-left-width: 4px;
+  color: #fff;
+  pointer-events: auto;
+}
+
+.toast--error {
+  border-left-color: #e5484d;
+}
+
+.toast--info {
+  border-left-color: var(--orange-bright);
+}
+
+.toast__message {
+  flex: 1;
+}
+
+.toast__close {
+  flex: none;
+  padding: 0 4px;
+  background: none;
+  border: 0;
+  color: var(--steel-300);
+  font: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.toast__close:hover {
+  color: #fff;
+}

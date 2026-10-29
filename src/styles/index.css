@@ -1,0 +1,47 @@
+:root {
+  color-scheme: dark;
+  font: 14px/1.4 'Rajdhani', 'Segoe UI', system-ui, Roboto, sans-serif;
+
+  /* ---- Industrial palette ---- */
+  --bg-deep: #0d0d0d;
+  --bg-base: #141414;
+  --bg-panel: #1c1c1c;
+  --bg-elevated: #242424;
+  --bg-hover: #2e2e2e;
+
+  --line-soft: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.18);
+
+  --steel-100: #f1f1ee;
+  --steel-300: #c8c8c4;
+  --steel-400: #9a9a96;
+  --steel-500: #6e6e6a;
+  --steel-600: #4a4a47;
+
+  --orange: #f99a1c;
+  --orange-bright: #ffb347;
+  --orange-deep: #c97608;
+  --orange-glow: rgba(249, 154, 28, 0.35);
+  --orange-tint: rgba(249, 154, 28, 0.12);
+
+  --danger: #d94c2c;
+  --danger-glow: rgba(217, 76, 44, 0.25);
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-base);
+  color: var(--steel-100);
+}
+
+canvas {
+  display: block;
+  outline: none;
+}

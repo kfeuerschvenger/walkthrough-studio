@@ -1,0 +1,41 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-server
+coverage
+dist-ssr
+*.local
+
+# Environment files: only the documented template is tracked
+.env
+.env.*
+!.env.example
+
+# Backend runtime data: scene state and uploaded textures
+server/data/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.no-telemetry
+
+# 3D models stay local: the house model is private
+*.fbx
+
+# Private working notes, never published
+docs/private/

@@ -1,0 +1,37 @@
+services:
+  walkthrough:
+    build:
+      context: .
+      # Build arguments reach Vite at build time. Rebuild after changing them:
+      #   docker compose build
+      # args:
+      #   VITE_HOUSE_URL: /models/House.fbx
+      #   VITE_HOUSE_SPAWN: "-2,0"
+      #   VITE_HOUSE_GROUND_HINTS: "floor,ground"
+      #   VITE_SUN_PATH_ROTATION_DEG: "45"
+    image: walkthrough:latest
+    restart: unless-stopped
+    # Reaps zombies and forwards SIGTERM to node, so `docker stop` triggers
+    # the graceful shutdown instead of waiting for the kill timeout.
+    init: true
+    # Hardening: the app only writes to the /data volume, so everything
+    # else can be read-only and unprivileged.
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      # Loopback only: the API has no authentication.
+      - "127.0.0.1:3001:3001"
+    volumes:
+      - walkthrough-data:/data
+      # Private model, mounted read-only and served at /models/House.fbx
+      # (the image sets MODELS_DIR=/models). Pair it with the VITE_HOUSE_URL
+      # build argument above.
+      # - ./public/House.fbx:/models/House.fbx:ro
+
+volumes:
+  walkthrough-data:
