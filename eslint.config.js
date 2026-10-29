@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', 'dist-server', 'coverage', 'server/data']),
+  globalIgnores(['dist', 'dist-server', 'coverage', 'server/data', 'e2e/showcase/out']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -38,6 +38,15 @@ export default defineConfig([
     extends: [js.configs.recommended],
     languageOptions: {
       globals: globals.node,
+    },
+  },
+  {
+    // The capture pipeline runs in Node and hands small functions to the
+    // browser (`page.evaluate`, init scripts), so both sets of globals apply.
+    files: ['e2e/**/*.mjs'],
+    extends: [js.configs.recommended],
+    languageOptions: {
+      globals: { ...globals.node, ...globals.browser },
     },
   },
 ])

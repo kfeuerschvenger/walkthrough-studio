@@ -37,5 +37,8 @@ server/data/
 # 3D models stay local: the house model is private
 *.fbx
 
+# Capture pipeline: the recorded video and the palette are intermediates
+e2e/showcase/out/
+
 # Private working notes, never published
 docs/private/

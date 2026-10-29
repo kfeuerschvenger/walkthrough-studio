@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "house": "public/demo/house.glb",
+  "textures": [
+    { "key": "brick", "file": "textures/red_brick_03.jpg", "name": "Ladrillo.jpg", "scale": 1.5 },
+    { "key": "wood", "file": "textures/wood_floor_deck.jpg", "name": "Madera.jpg", "scale": 2 },
+    { "key": "plaster", "file": "textures/white_plaster_02.jpg", "name": "Yeso.jpg", "scale": 2 },
+    { "key": "paint", "file": "textures/beige_wall_001.jpg", "name": "Pintura.jpg", "scale": 3 },
+    { "key": "tiles", "file": "textures/floor_tiles_06.jpg", "name": "Baldosa.jpg", "scale": 1.2 },
+    { "key": "concrete", "file": "textures/concrete_wall_008.jpg", "name": "Cemento.jpg", "scale": 3 }
+  ],
+  "scene": {
+    "hour": 16.5,
+    "bodies": [
+      { "texture": "wood", "names": ["floor_0_0", "floor_0_1", "floor_0_2", "floor_1_0", "floor_1_1", "floor_1_2", "floor_2_0", "floor_2_1", "floor_2_2", "floor_3_0", "floor_3_1", "floor_4_0", "floor_4_1"] },
+      { "texture": "tiles", "names": ["floor_3_2", "floor_4_2"] },
+      { "texture": "brick", "names": ["wall_v_0_0", "wall_v_0_1", "wall_v_0_2", "wall_v_5_0", "wall_v_5_1", "wall_v_5_2", "wall_h_0_0", "wall_h_1_0", "wall_h_2_0", "wall_h_3_0", "wall_h_4_0", "wall_h_0_3", "wall_h_1_3", "wall_h_2_3", "wall_h_3_3", "wall_h_4_3"] },
+      { "texture": "plaster", "names": ["wall_v_3_0", "wall_v_3_1", "wall_v_3_2", "wall_h_3_2", "wall_h_4_2"] },
+      { "texture": "concrete", "names": ["column_0_0", "column_0_1", "column_0_2", "column_0_3", "column_3_0", "column_3_1", "column_3_2", "column_3_3", "column_5_0", "column_5_1", "column_5_2", "column_5_3", "column_1_0", "column_2_0", "column_4_0", "column_4_2", "column_1_3", "column_2_3", "column_4_3"] },
+      { "texture": "paint", "names": ["roof_0_0", "roof_0_1", "roof_0_2", "roof_1_0", "roof_1_1", "roof_1_2", "roof_2_0", "roof_2_1", "roof_2_2", "roof_3_0", "roof_3_1", "roof_3_2", "roof_4_0", "roof_4_1", "roof_4_2"] }
+    ],
+    "faces": [
+      { "texture": "paint", "toleranceDeg": 5, "seeds": [
+        { "body": "wall_v_0_0", "tri": 18 },
+        { "body": "wall_v_0_1", "tri": 9 },
+        { "body": "wall_v_0_2", "tri": 18 },
+        { "body": "wall_h_0_0", "tri": 1 },
+        { "body": "wall_h_1_0", "tri": 12 },
+        { "body": "wall_h_2_0", "tri": 1 },
+        { "body": "wall_h_0_3", "tri": 18 },
+        { "body": "wall_h_1_3", "tri": 6 },
+        { "body": "wall_h_2_3", "tri": 18 },
+        { "body": "wall_v_3_0", "tri": 16 },
+        { "body": "wall_v_3_1", "tri": 1 },
+        { "body": "wall_v_3_2", "tri": 16 }
+      ] },
+      { "texture": "plaster", "toleranceDeg": 5, "seeds": [
+        { "body": "wall_h_3_0", "tri": 12 },
+        { "body": "wall_h_4_0", "tri": 1 },
+        { "body": "wall_v_5_0", "tri": 12 },
+        { "body": "wall_v_5_1", "tri": 1 },
+        { "body": "wall_h_0_3", "tri": 12 },
+        { "body": "wall_h_1_3", "tri": 16 },
+        { "body": "wall_h_2_3", "tri": 12 },
+        { "body": "wall_h_3_3", "tri": 12 },
+        { "body": "wall_h_4_3", "tri": 1 }
+      ] }
+    ],
+    "lights": [
+      { "id": "demo-lamp-sofa", "shape": "sphere", "position": [-3.4, 2.05, -1.4], "rotation": [0, 0, 0], "scale": [0.15, 0.15, 0.15], "color": "#ffa95c", "intensity": 10 },
+      { "id": "demo-spot-table", "shape": "spot", "position": [-1.2, 2.3, 1.4], "rotation": [0, 0, 0], "scale": [0.2, 0.2, 0.2], "color": "#ffd599", "intensity": 14 },
+      { "id": "demo-lamp-bedroom", "shape": "sphere", "position": [2.8, 2.05, -1], "rotation": [0, 0, 0], "scale": [0.15, 0.15, 0.15], "color": "#ff9d54", "intensity": 8 }
+    ]
+  }
+}

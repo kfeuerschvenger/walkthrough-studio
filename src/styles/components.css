@@ -580,3 +580,14 @@
 .toast__close:hover {
   color: #fff;
 }
+
+/* ---------- Brand mark ---------- */
+
+.logo-mark__edges {
+  stroke: var(--steel-400);
+}
+
+.logo-mark__wall {
+  fill: var(--orange);
+  stroke: var(--orange-deep);
+}

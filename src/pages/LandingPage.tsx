@@ -1,3 +1,4 @@
+import LogoMark from '../components/atoms/LogoMark';
 import ModeCard from '../components/molecules/ModeCard';
 
 /**
@@ -10,24 +11,29 @@ import ModeCard from '../components/molecules/ModeCard';
 export default function LandingPage() {
   return (
     <div className="landing">
-      <header className="landing__header">
-        <h1 className="landing__title">Walkthrough Studio</h1>
-        <p className="landing__tagline">Elegí qué querés hacer</p>
-      </header>
+      <div className="landing__scroll">
+        <div className="landing__content">
+          <header className="landing__header">
+            <LogoMark className="landing__logo" />
+            <h1 className="landing__title">Walkthrough Studio</h1>
+            <p className="landing__tagline">Elegí qué querés hacer</p>
+          </header>
 
-      <div className="landing__grid">
-        <ModeCard
-          to="/walkthrough"
-          title="Walkthrough"
-          subtitle="Recorrer la casa en primera persona"
-          plate="W"
-        />
-        <ModeCard
-          to="/texture-tool"
-          title="Scene Editor"
-          subtitle="Pintar texturas y editar iluminación"
-          plate="S"
-        />
+          <div className="landing__grid">
+            <ModeCard
+              to="/walkthrough"
+              title="Walkthrough"
+              subtitle="Recorrer la casa en primera persona"
+              plate="W"
+            />
+            <ModeCard
+              to="/texture-tool"
+              title="Scene Editor"
+              subtitle="Pintar texturas y editar iluminación"
+              plate="S"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
