@@ -65,7 +65,7 @@
     "three": "^0.184.0",
     "three-stdlib": "^2.36.1",
     "tsx": "^4.20.6",
-    "typescript": "~6.0.2",
+    "typescript": "~7.0.2",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12",
     "vitest": "^5.0.5"
