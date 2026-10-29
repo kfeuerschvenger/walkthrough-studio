@@ -1,5 +1,6 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import { socialMeta } from './vite-plugins/socialMeta.ts';
 
 /**
  * Vite dev config.
@@ -14,8 +15,9 @@ import react from '@vitejs/plugin-react';
  */
 const apiTarget = `http://127.0.0.1:${process.env.PORT ?? 3001}`;
 
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(({ mode }) => ({
+  // `VITE_SITE_URL` (optional) turns the social preview image URLs absolute.
+  plugins: [react(), socialMeta(loadEnv(mode, process.cwd(), 'VITE_').VITE_SITE_URL)],
   build: {
     // The `three` vendor chunk (about 1.1 MB minified) is intentionally one
     // file: it changes only on a three.js upgrade, so it stays cached across
@@ -53,4 +55,4 @@ export default defineConfig({
       ignored: ['**/server/data/**'],
     },
   },
-});
+}));

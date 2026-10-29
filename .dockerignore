@@ -19,6 +19,9 @@ server/data
 # Source material for the demo model, not needed to build the app
 assets-src
 
+# Documentation, including private notes, is not read by the image build
+docs
+
 # Version control, editor, and OS files
 .git
 .gitignore

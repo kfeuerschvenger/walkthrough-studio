@@ -231,16 +231,34 @@
 /* ---------- Landing ---------- */
 
 .landing {
+  /* Fixed, non-scrolling shell: it carries the background, the grid, and the
+     tape strip so they stay put while `.landing__scroll` scrolls. */
   position: fixed;
   inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at top, #1f1f1f 0%, var(--bg-base) 60%, var(--bg-deep) 100%);
+}
+
+.landing__scroll {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing__content {
+  /* Auto block margins centre the content when there is spare room and
+     collapse to zero when it overflows, so the top is never clipped. */
+  margin-block: auto;
+  box-sizing: border-box;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 56px;
+  gap: clamp(24px, 6vh, 56px);
   padding: 24px;
-  background:
-    radial-gradient(ellipse at top, #1f1f1f 0%, var(--bg-base) 60%, var(--bg-deep) 100%);
 }
 
 .landing::before {
@@ -280,11 +298,23 @@
   padding: 0 8px;
 }
 
+.landing__logo {
+  display: block;
+  width: clamp(48px, 9vh, 80px);
+  height: auto;
+  margin: 0 auto 20px;
+  filter: drop-shadow(0 4px 14px var(--orange-glow));
+}
+
 .landing__title {
+  --tracking: 0.32em;
   margin: 0;
-  font-size: 64px;
+  font-size: clamp(26px, 8.5vw, 64px);
   font-weight: 700;
-  letter-spacing: 0.32em;
+  letter-spacing: var(--tracking);
+  /* Every line ends with trailing letter-spacing; the matching left padding
+     keeps wrapped lines optically centred. */
+  padding-left: var(--tracking);
   text-transform: uppercase;
   color: var(--steel-100);
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
@@ -432,4 +462,73 @@
   letter-spacing: 0.04em;
   max-width: 220px;
   line-height: 1.5;
+}
+
+/* Phone portrait: one column, tighter cards. */
+@media (max-width: 599px) {
+  .landing__content {
+    gap: 28px;
+    padding: 20px 16px;
+  }
+
+  .landing__title {
+    --tracking: 0.2em;
+  }
+
+  .landing__title::after {
+    margin-top: 12px;
+  }
+
+  .landing__grid {
+    grid-template-columns: minmax(0, 340px);
+    width: 100%;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .mode-card {
+    min-height: 0;
+    padding: 20px 20px;
+    gap: 12px;
+  }
+}
+
+/* Short viewports (landscape phone): compact header, cards side by side. */
+@media (max-height: 500px) {
+  .landing__content {
+    gap: 16px;
+    padding: 16px 20px;
+  }
+
+  .landing__logo {
+    margin-bottom: 8px;
+  }
+
+  .landing__title {
+    font-size: clamp(22px, 5vh, 32px);
+  }
+
+  .landing__title::after {
+    margin-top: 8px;
+  }
+
+  .landing__tagline {
+    margin-top: 8px;
+  }
+
+  .landing__grid {
+    grid-template-columns: repeat(2, minmax(0, 260px));
+    gap: 16px;
+  }
+
+  .mode-card {
+    min-height: 0;
+    padding: 14px 16px;
+    gap: 8px;
+  }
+
+  .mode-card__plate {
+    width: 52px;
+    height: 52px;
+  }
 }

@@ -13,6 +13,12 @@ interface ImportMetaEnv {
   readonly VITE_HOUSE_GROUND_HINTS?: string;
   /** Rotation of the sun arc around the Y axis, in degrees. */
   readonly VITE_SUN_PATH_ROTATION_DEG?: string;
+  /**
+   * Public base URL of the deployment, such as `https://walk.example.com` or
+   * `https://example.com/walk` for a sub-path. Makes the social preview image
+   * URLs absolute and adds `og:url`.
+   */
+  readonly VITE_SITE_URL?: string;
 }
 
 interface ImportMeta {
