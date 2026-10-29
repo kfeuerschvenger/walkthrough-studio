@@ -1,0 +1,15 @@
+{
+  "name": "walkthrough-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Screenshot and animation pipeline for the Walkthrough Studio README",
+  "scripts": {
+    "install:browsers": "playwright install chromium",
+    "showcase": "node showcase/capture.mjs",
+    "showcase:gif": "node showcase/capture.mjs hero && node showcase/gif.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}

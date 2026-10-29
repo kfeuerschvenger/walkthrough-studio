@@ -17,7 +17,11 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "showcase:install": "npm --prefix e2e ci && npm --prefix e2e run install:browsers",
+    "showcase:seed": "node e2e/showcase/seed.mjs",
+    "showcase:capture": "npm --prefix e2e run showcase",
+    "showcase:gif": "npm --prefix e2e run showcase:gif"
   },
   "dependencies": {
     "express": "^5.1.0",
