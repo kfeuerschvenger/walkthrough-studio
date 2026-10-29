@@ -1,0 +1,26 @@
+version: 2
+
+# Weekly update pull requests into develop, so they go through the same CI and
+# promotion flow as any other change.
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
+    groups:
+      # One pull request for minor and patch bumps keeps the queue short.
+      minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: docker
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
