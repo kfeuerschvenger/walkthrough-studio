@@ -1,0 +1,74 @@
+name: CI
+
+# Runs on every pull request into develop and main and on every push to them.
+# The job names below are what branch protection requires, so renaming one
+# detaches it from the rule: check, audit, docker.
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop, main]
+
+permissions:
+  contents: read
+
+concurrency:
+  # A newer push to the same pull request supersedes the run in progress. A
+  # push to develop or main gets a group per commit, so every commit on those
+  # branches keeps a result.
+  group: ci-${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || format('{0}-{1}', github.ref, github.sha) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    name: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm test
+      # Type-checks the app, the server and the shared types, then bundles the
+      # frontend.
+      - name: Build the frontend
+        run: npm run build
+      - name: Build the server
+        run: npm run build:server
+
+  audit:
+    name: audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: 22
+      # Fails on any advisory, low severity included, development dependencies
+      # included. The lockfile is audited as committed, without installing.
+      - name: Audit dependencies
+        run: npm audit --audit-level=low
+
+  docker:
+    name: docker
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      # Builds the same image docker compose runs, with the bundled demo house.
+      - name: Build the image
+        run: docker compose build
