@@ -46,7 +46,7 @@
     "@react-three/fiber": "^9.8.2",
     "@types/express": "^5.0.4",
     "@types/multer": "^2.0.0",
-    "@types/node": "^24.12.3",
+    "@types/node": "^26.6.5",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/supertest": "^7.2.1",
